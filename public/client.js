@@ -26,19 +26,37 @@ function getAndDisplayBloggingPosts() {
   });
 }
 
+function handleBlogPostAdd() {
+  $('#js-post-form').submit(function(e) {
+    e.preventDefault();
+    addBlogPost({
+      title: $(e.currentTarget).find('#js-post-title').val(),
+      content: $(e.currentTarget).find('#js-post-content').val(),
+      author: $(e.currentTarget).find('#js-post-author').val(),
+    });
+  });
+}
 
-
-
-
-
-
-
+function addBlogPost(item) {
+  console.log('Adding blog post: ' + item);
+  console.log(item);
+  $.ajax({
+    method: 'POST',
+    url: BLOG_POSTS_URL,
+    data: JSON.stringify(item),
+    success: function(data) {
+      getAndDisplayBloggingPosts();
+    },
+    dataType: 'json',
+    contentType: 'application/json'
+  });
+}
 
 
 //Need functions for these CRDU operations
 $(function() {
     getAndDisplayBloggingPosts();
     handleBlogPostAdd();
-    handleBlogPostDelete();
-    handleBlogPostCheckedToggle();  
+    // handleBlogPostDelete();
+    // handleBlogPostCheckedToggle();  
   });  

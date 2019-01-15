@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
@@ -21,12 +21,22 @@
                 <section>     
                     <h2>Current posts</h2>
                     <form id="js-post-form">
-                        <label for="blog-post-entry">Add your topic</label>
-                        <input type="text" name="blog-post-entry" id="js-new-item" placeholder="e.g., New article">
-                        <button type="submit">Add item</button>
+                        <div class="form-containers">
+                            <label for="blog-post-title">Add your title</label>
+                            <input type="text" name="blog-post-title" id="js-post-title" placeholder="e.g., New article">
+                        </div>
+                        <div class="form-containers">
+                            <label for="blog-post-content">Add your content</label>
+                            <input type="text" name="blog-post-content" id="js-post-content" placeholder="e.g., blahblah blahh">
+                        </div>
+                        <div class="form-containers">
+                            <label for="blog-post-author">Add the authors name</label>
+                            <input type="text" name="blog-post-author" id="js-post-author" placeholder="e.g., Jon Smith">
+                        </div>
+                        <button type="submit">Post It</button>
                     </form>
 
-                    <ul class="post-list blog-post-landing">
+                    <ul class="post-list blog-post-list">
                     </ul>
                 </section>
 
@@ -34,5 +44,5 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" 
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
         crossorigin="anonymous"></script>
-        <script src="/client.js"></script>
+        <script src="client.js"></script>
   </body>
