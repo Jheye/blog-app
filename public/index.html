@@ -3,7 +3,7 @@
 <html>
 
   <head>
-    <title>Blog Post PAge!!!</title>
+    <title>Blog Post Page!!!</title>
     <meta name="description" content="Post blog articles">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,12 +13,23 @@
   </head>
 
   <body>
+        <div class="container">
+            <header>
+                <h1>Blog Posts Central</h1>
+            </header>
+            <main>
+                <section>     
+                    <h2>Current posts</h2>
+                    <form id="js-post-form">
+                        <label for="blog-post-entry">Add your topic</label>
+                        <input type="text" name="blog-post-entry" id="js-new-item" placeholder="e.g., New article">
+                        <button type="submit">Add item</button>
+                    </form>
 
+                    <ul class="post-list blog-post-list">
+                    </ul>
+                </section>
 
-
-
-
-    
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" 
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 

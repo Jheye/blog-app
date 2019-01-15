@@ -2,6 +2,13 @@
     box-sizing: border-box;
   }
   
-  body {
+body {
     font-family: 'Roboto', sans-serif;
+    padding: 5px;
+    margin-left: 10px;
+  }
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
   }
