@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
 
 const { BlogPosts } = require("./models");
 
@@ -33,7 +31,7 @@ router.get("/", (req, res) => {
 // send a 400 error if the post doesn't contain
 // `title`, `content`, and `author`
 
-router.post("/", jsonParser, (req, res) => {
+router.post("/", (req, res) => {
   const requiredFields = ["title", "content", "author"];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -58,7 +56,7 @@ router.post("/", jsonParser, (req, res) => {
 // following required fields are in request body: `id`, `title`,
 // `content`, `author`, `publishDate`
 
-router.put("/:id", jsonParser, (req, res) => {
+router.put("/:id", (req, res) => {
   const requiredFields = ["id", "title", "content", "author", "publishDate"];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
