@@ -16,10 +16,10 @@ function getAndDisplayBloggingPosts() {
   $.getJSON(BLOG_POSTS_URL, function(items) {
     console.log('Rendering blog post...');
     let itemElements = items.map(function(item) {
+      console.log('Logging item', item);
       let element = $(postTemplate);
       element.attr('id', item.id);
-      let itemTitle = element.find('.js-post-item-title');
-      itemTitle.text(item.title);
+      element.find('.js-post-item-title').text(item.title);
       return element
     });
     $('.blog-post-landing').html(itemElements);
@@ -56,7 +56,7 @@ function addBlogPost(item) {
 //Need functions for these CRDU operations
 $(function() {
     getAndDisplayBloggingPosts();
-    handleBlogPostAdd();
+    // handleBlogPostAdd();
     // handleBlogPostDelete();
     // handleBlogPostCheckedToggle();  
   });  
