@@ -30,9 +30,9 @@ function handleBlogPostAdd() {
   $('#js-post-form').submit(function(e) {
     e.preventDefault();
     addBlogPost({
-      title: $(e.currentTarget).find('#js-post-title').val(),
-      content: $(e.currentTarget).find('#js-post-content').val(),
-      author: $(e.currentTarget).find('#js-post-author').val(),
+      title: $('#js-post-title').val(),
+      content: $('#js-post-content').val(),
+      author: $('#js-post-author').val(),
     });
   });
 }
