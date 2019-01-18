@@ -52,11 +52,27 @@ function addBlogPost(item) {
   });
 }
 
+function handleBlogPostDelete () {
+  $('.blog-post-landing').on('click', '.js-post-item-delete', function(e) {
+      e.preventDefault(),
+      deleteBlogPost(
+        $(e.currentTarget).closest('.js-post-item').attr('id')
+      );
+  });
+};
+
+function deleteBlogPost(id) {
+  $.ajax({
+    url:BLOG_POSTS_URL + '/' + id,
+    method: 'DELETE',
+    success: getAndDisplayBloggingPosts
+  }); 
+};
+
 
 //Need functions for these CRDU operations
 $(function() {
     getAndDisplayBloggingPosts();
-    // handleBlogPostAdd();
-    // handleBlogPostDelete();
-    // handleBlogPostCheckedToggle();  
+    handleBlogPostAdd();
+    handleBlogPostDelete();  
   });  
