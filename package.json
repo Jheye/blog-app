@@ -4,7 +4,8 @@
   "description": "Shopping list app to demo 'the modern classic'",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "mocha"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -16,5 +17,18 @@
     "node",
     "express"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jheye/blog-app-challenge-starter-files.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/Jheye/blog-app-challenge-starter-files/issues"
+  },
+  "homepage": "https://github.com/Jheye/blog-app-challenge-starter-files#readme"
 }
