@@ -4,10 +4,10 @@ const morgan = require("morgan");
 const bprouter = require("./blogPostsRouter");
 const app = express();
 
-app.use('/blog-posts', bprouter);
 app.use(morgan("common"));
 app.use(express.static('public'));
 app.use(express.json());
+app.use('/blog-posts', bprouter);
 
 let server;
 
