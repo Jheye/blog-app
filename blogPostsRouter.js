@@ -3,8 +3,7 @@
 /*
 
 
-Commenting this file out since data model moving into MongoDB and interact with the DB by using mongoose framework
-to define things like how to represent the data schema, data validation, querying
+Commenting this file out since api routes will move to server.js
 
 
 */

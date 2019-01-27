@@ -1,66 +1,43 @@
-const uuid = require("uuid");
+/*This file creates the BlogPost model that we export to server.js */
 
-// this module provides volatile storage, using a `BlogPost`
-// model. We haven't learned about databases yet, so for now
-// we're using in-memory storage. This means each time the app stops, our storage
-// gets erased.
+const mongoose = require('mongoose');//require and add es6 promises like server.js
+mongoose.Promise = global.Promise;  //make mongoose use ES6 promises
 
-// don't worry to much about how BlogPost is implemented.
-// Our concern in this example is with how the API layer
-// is implemented, and getting it to use an existing model.
-
-function StorageException(message) {
-  this.message = message;
-  this.name = "StorageException";
-}
-
-const BlogPosts = {
-  create: function(title, content, author, publishDate) {
-    const post = {
-      id: uuid.v4(),
-      title: title,
-      content: content,
-      author: author,
-      publishDate: publishDate || Date.now()
-    };
-    this.posts.push(post);
-    return post;
+//Below model schema defines how every document in this collection should look
+const blogPostSchema = mongoose.Schema({
+  author: {
+    firstName: String,
+    lastName: String,
   },
-  get: function(id = null) {
-    // if id passed in, retrieve single post,
-    // otherwise send all posts.
-    if (id !== null) {
-      return this.posts.find(post => post.id === id);
-    }
-    // return posts sorted (descending) by
-    // publish date
-    return this.posts.sort(function(a, b) {
-      return b.publishDate - a.publishDate;
-    });
-  },
-  delete: function(id) {
-    const postIndex = this.posts.findIndex(post => post.id === id);
-    if (postIndex > -1) {
-      this.posts.splice(postIndex, 1);
-    }
-  },
-  update: function(updatedPost) {
-    const { id } = updatedPost;
-    const postIndex = this.posts.findIndex(post => post.id === updatedPost.id);
-    if (postIndex === -1) {
-      throw StorageException(
-        `Can't update item \`${id}\` because doesn't exist.`
-      );
-    }
-    this.posts[postIndex] = Object.assign(this.posts[postIndex], updatedPost);
-    return this.posts[postIndex];
-  }
+  title: {
+    type: String, 
+    required: true},
+  content: {
+    type: String,
+    required: true},
+  created: {
+    type: Date,
+     default: Date.now}
+});
+
+//Using virtuals to create a property on the model
+blogPostSchema.virtual('authorString').get(function() {
+  return `${this.author.firstName} ${this.author.lastName}`.trim();
+});
+
+//Declare an instance method of serialize which lets me specify how posts are represented from the api
+blogPostSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    author: this.authorName,
+    content: this.content,
+    title: this.title,
+    created: this.created
+  };
 };
 
-function createBlogPostsModel() {
-  const storage = Object.create(BlogPosts);
-  storage.posts = [];
-  return storage;
-}
+//Now create the new mongoose model BlogPost that uses blogPostSchema that is defined above
+//The model('BlogPost, ) argument determines the collection
+const BlogPost = mongoose.model('BlogPost', blogPostSchema);
 
-module.exports = { BlogPosts: createBlogPostsModel() };
+module.exports = { BlogPost };
