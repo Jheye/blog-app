@@ -2,16 +2,18 @@
 
 const express = require("express");
 const morgan = require("morgan");
-// const mongoose = require('mongoose');
-// mongoose.Promise = global.Promise;
-// const { DATABASE_URL, PORT } = require('./config');
+const mongoose = require('mongoose');//require
+mongoose.Promise = global.Promise;  //make mongoose use ES6 promises
+const { DATABASE_URL, PORT } = require('./config');//require config.js file for PORT/DATABASE_URL & future test url
+const { Blogpost } = require('./models');
+
 const bprouter = require("./blogPostsRouter");
 const app = express();
 
 app.use(morgan("common"));
 app.use(express.static('public'));
 app.use(express.json());
-app.use('/blog-posts', bprouter);
+app.use('/posts', bprouter);
 
 let server;
 
