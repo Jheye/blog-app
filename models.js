@@ -4,7 +4,7 @@ const mongoose = require('mongoose');//require and add es6 promises like server.
 mongoose.Promise = global.Promise;  //make mongoose use ES6 promises
 
 //Below model schema defines how every document in this collection should look
-const blogPostSchema = mongoose.Schema({
+const BlogPostSchema = mongoose.Schema({
   author: {
     firstName: String,
     lastName: String,
@@ -21,12 +21,12 @@ const blogPostSchema = mongoose.Schema({
 });
 
 //Using virtuals to create a property on the model
-blogPostSchema.virtual('authorString').get(function() {
+BlogPostSchema.virtual('authorString').get(function() {
   return `${this.author.firstName} ${this.author.lastName}`.trim();
 });
 
 //Declare an instance method of serialize which lets me specify how posts are represented from the api
-blogPostSchema.methods.serialize = function() {
+BlogPostSchema.methods.serialize = function() {
   return {
     id: this._id,
     author: this.authorName,
@@ -36,8 +36,8 @@ blogPostSchema.methods.serialize = function() {
   };
 };
 
-//Now create the new mongoose model BlogPost that uses blogPostSchema that is defined above
+//Now create the new mongoose model BlogPost that uses BlogPostSchema that is defined above
 //The model('BlogPost, ) argument determines the collection
-const BlogPost = mongoose.model('BlogPost', blogPostSchema);
+const BlogPost = mongoose.model('BlogPost', BlogPostSchema);
 
 module.exports = { BlogPost };

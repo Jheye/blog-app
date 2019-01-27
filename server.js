@@ -112,9 +112,53 @@ app.use('*', function (req, res) {
   res.status(404).json({ message: 'Not Found' });
 });
 
-//Runs server
+// closeServer needs access to a server object, but that only
+// gets created when `runServer` runs, so we declare `server` here
+// and then assign a value to it in run
+// runServer and closeServer need access to the server object which is why it's declared outside block
+let server;
+
+// runServer is responsible for coordinating both the connection to the database,
+// and the running of the HTTP server.
+//First mongoose is used to connect to the database, using the URL from config.js. 
+//Next, you listen for new connections on the configured port. If works runServer works
+//it will return a promise, making testing easier
+function runServer(databaseUrl, port = PORT) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(databaseUrl, err => {
+      if (err) {
+        return reject(err);
+      }
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      })
+        .on('error', err => {
+          mongoose.disconnect();
+          reject(err);
+        });
+    });
+  });
+}
+
+// this function closes the server, and returns a promise
+function closeServer() {
+  return mongoose.disconnect().then(() => {
+    return new Promise((resolve, reject) => {
+      console.log('Closing server');
+      server.close(err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
+  });
+};
+
+//Runs server if script is run by node server.js or nodemon, also if the file is set up to help with testing
 if (require.main === module) {  //
   runServer(DATABASE_URL).catch(err => console.error(err));
 }
 
-module.exports = { app, runServer, closeServer };
+module.exports = { runServer, app, closeServer };
