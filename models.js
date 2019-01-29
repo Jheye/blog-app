@@ -3,8 +3,7 @@
 const mongoose = require('mongoose');//require and add es6 promises like server.js
 mongoose.Promise = global.Promise;  //make mongoose use ES6 promises
 
-
-var authorSchema = mongoose.Schema({
+const authorSchema = mongoose.Schema({
   firstName: 'string',
   lastName: 'string',
   userName: {
@@ -13,22 +12,22 @@ var authorSchema = mongoose.Schema({
   }
 });
 
-var commentSchema = mongoose.Schema({ content: 'string' });
+const commentSchema = mongoose.Schema({ content: 'string' });
 
 //Below model schema defines how every document in this collection should look
-var BlogPostSchema = mongoose.Schema({
+const BlogPostSchema = mongoose.Schema({
   title: 'string',
   content: 'string',
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'Author' },
   comments: [commentSchema]
 });
 
-blogPostSchema.pre('find', function(next) {
+BlogPostSchema.pre('find', function(next) {
   this.populate('author');
   next();
 });
 
-blogPostSchema.pre('findOne', function(next) {
+BlogPostSchema.pre('findOne', function(next) {
   this.populate('author');
   next();
 });
@@ -53,7 +52,7 @@ BlogPostSchema.methods.serialize = function() {
 //Added Author export
 //Now create the new mongoose model BlogPost that uses BlogPostSchema that is defined above
 //The model('BlogPost, ) argument determines the collection
-var Author = mongoose.model('Author', authorSchema);
+const Author = mongoose.model('Author', authorSchema);
 
 const BlogPost = mongoose.model('BlogPost', BlogPostSchema);
 
